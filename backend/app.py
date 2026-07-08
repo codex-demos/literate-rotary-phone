@@ -32,7 +32,7 @@ def create_resource():
     return {"error": "Title is required"}, 400
 
   response = supabase.table(TABLE).insert(data).execute()
-  return response.data, 201
+  return response.data[0], 201
 
 if __name__ == "__main__":
   app.run(debug=True)
