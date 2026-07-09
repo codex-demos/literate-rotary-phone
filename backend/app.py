@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 from supabase import create_client, Client
 import os
+
 load_dotenv()
 app = Flask(__name__)
 CORS(app, origins=["*"])
@@ -16,7 +17,7 @@ supabase: Client = create_client(
 
 @app.get("/")
 def health():
-  return {"status": "good"}
+  return {"status": "ok"}
 
 @app.get("/api/resources")
 def get_data():
@@ -29,7 +30,7 @@ def create_resource():
   data = request.get_json()
 
   if not data.get("title"):
-    return {"error": "Title is required"}, 400
+    return {"error": "title is required"}, 400
 
   response = supabase.table(TABLE).insert(data).execute()
   return response.data[0], 201
