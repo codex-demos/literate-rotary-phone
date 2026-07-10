@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import "./App.css";
 import AddResourceForm from "./components/AddResourceForm";
-import { BrowserRouter, Link, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import { AppBar, Button, Stack, Toolbar, Typography } from "@mui/material";
 import Resources from "./components/Resources";
+import Header from "./components/Header";
+import { useUser } from "./context/UserContext";
 
 function App() {
   const BACKEND = import.meta.env.VITE_BACKEND;
@@ -13,46 +15,13 @@ function App() {
     }
     wakeBackend();
   }, []);
-
+  const { user } = useUser();
   return (
     <>
       <main>
         <section>
-          <AppBar
-            sx={{ mb: 2 }}
-            position="static"
-          >
-            <Toolbar>
-              <Typography
-                sx={{ flexGrow: 1 }}
-                component={"h3"}
-                variant="h6"
-              >
-                Resource Library
-              </Typography>
-
-              <Stack
-                direction={"row"}
-                spacing={1}
-              >
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/new"
-                >
-                  Create
-                </Button>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/resources"
-                >
-                  Resources
-                </Button>
-              </Stack>
-            </Toolbar>
-          </AppBar>
-
+          <Header />
+          <Typography variant="h2">{user?.username}</Typography>
           <Routes>
             <Route
               path="/"

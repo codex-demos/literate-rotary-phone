@@ -1,34 +1,9 @@
 import { Card, CardContent, Chip, Typography, Stack, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useResources } from "../context/ResourceContext";
 
 function Resources() {
-  const [resources, setResources] = useState([]);
-  const [isError, setIsError] = useState(false);
-  const [message, setMessage] = useState("");
-  const [isLoading, setLoading] = useState(true);
-
-  async function loadResources() {
-    try {
-      setIsError(false);
-      const res = await fetch(import.meta.env.VITE_BACKEND + "/api/resources");
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Response was not okay");
-      }
-
-      setResources(data.resources);
-    } catch (error) {
-      setIsError(true);
-      setMessage("Something went wrong getting resources. Please reload the page.");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    loadResources();
-  }, []);
+  const { isLoading, resources, isError, message } = useResources();
 
   if (isLoading) {
     return (
