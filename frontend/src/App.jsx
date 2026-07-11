@@ -15,13 +15,14 @@ function App() {
     }
     wakeBackend();
   }, []);
-  const { user } = useUser();
+  let user;
+  // const { user } = useUser();
   return (
     <>
       <main>
         <section>
           <Header />
-          <Typography variant="h2">{user?.username}</Typography>
+          <Typography variant="h2">{user?.email}</Typography>
           <Routes>
             <Route
               path="/"

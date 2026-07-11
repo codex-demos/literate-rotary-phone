@@ -60,7 +60,11 @@ export function ResourceProvider({ children }) {
     loadResources();
   }, []);
 
-  return <ResourceContext.Provider value={{ resources, isError, message, isLoading, createResource }}>{children}</ResourceContext.Provider>;
+  return (
+  <ResourceContext.Provider value={{ resources, isError, message, isLoading, createResource }}>
+    {children}
+  </ResourceContext.Provider>
+    );
 }
 
 export function useResources() {
